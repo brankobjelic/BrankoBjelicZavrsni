@@ -1,0 +1,286 @@
+<html>
+<head>
+	<title>Client</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="js/skripta.js"></script>
+</head>
+<body onload="getDataForTable()">
+	<div class="container">
+		<!-- navigacioni bar, ranije bilo na testovima. Verovatno nepotrebno. -->
+        <!-- <div class="row m-3">
+
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+						  proizvodi
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+						  Home
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+						  Api
+						</a>
+					</li>
+				</ul>
+			</nav>
+            <button type="button" id="btnLogin" class="btn btn-lg btn-primary col m-2" onclick="showLogin()">Login</button>
+            <button type="button" id="btnRegister" class="btn btn-lg btn-primary col m-2" onclick="showRegistration()">Register</button>
+            <button type="button" id="btnproizvods" class="btn btn-lg btn-primary col m-2" onclick="loadproizvodsLite()">proizvods</button>
+        </div> -->
+
+		<div  class="row mt-3" id="logout"  style="display:none">
+			<div class="col">
+				<p id="info"></p>
+			</div>
+			<div class="col" style="text-align: right">
+				<button class="btn btn-sm btn-warning btn-outline-dark" style="background-color: yellow !important;" onclick="logout()">Odjava</button>
+			</div>
+		</div>
+
+
+		<!-- <div id="logout" style="display:none">
+			<p id="info"></p><span>
+				<button class="btn btn-sm btn-light btn-outline-dark" onclick="logout()">Odjava</button>
+			</span>
+		</div> -->
+
+		<div id="logRegButtons" class="row mt-3" style="display:flex;">
+			<div class="col"></div>
+			<div class="col" style="justify-content: center; text-align:center">
+				<h3>Korisnik nije prijavljen na sistem</h3><br>
+				<div>
+					<button class="btn btn-sm btn-light m-2 btn-outline-dark" onclick="setLoginPage()">Prijava</button><br>
+
+				</div>
+				<button class="btn btn-sm btn-warning btn-outline-dark m-2" onclick="setRegistrationPage()" style="background-color: yellow !important;">Registracija</button><br>
+
+			</div>
+			<div class="col"></div>
+
+			
+		</div>
+
+		<div id="loginFormDiv" class="row mt-3" style="display:none;">
+			<div class="col-4"></div>
+			<div class="col-4">
+				<h3 style="text-align: center;">Prijava</h3>
+				<form method="post" action="post/" id="loginForm" onsubmit="return loginUser()">
+					<div class="form-group">
+						<label for="usernameLogin">Korisnicko ime: </label>
+						<input type="text" class="form-control" id="usernameLogin">                   
+					</div>
+					<div class="form-group">
+						<label for="usernameLogin">Lozinka: </label>
+						<input type="password" class="form-control" id="passwordLogin">                     
+					</div>
+					<br />
+					<p style="text-align: center;"><button class="btn btn-sm btn-light col m-2 btn-outline-dark">Prijava</button><br>
+					<!--	<button class="btn btn-sm btn-warning btn-outline-dark col m-2" onclick="setRegistrationPage()" type="button" style="background-color: yellow !important;">Registracija</button>-->
+						<button class="btn btn-sm btn-warning btn-outline-dark col m-2" onclick="setLogRegButtonsPage()" type="reset" style="background-color: yellow !important;">Odustajanje</button>
+					</p>
+				</form>
+
+			</div>
+			<div class="col-4"></div>
+		</div>
+
+		<!--ovo je moj div za formu za registraciju, ako treba da bude u obliku tabele
+		<div class="row" id="registerFormDiv" style="display:none;">
+			<div class="col">
+				<form method="POST" action="/post" id="registerForm" onsubmit="return registerUser()">
+					<table style="margin: 0 auto;" CELLPADDING=5 CELLSPACING=5>
+						<tr>                            
+							<td colspan="2" style="text-align: center;">
+								<h3>Registracija</h3>  
+							</td>                            
+						</tr>
+						<tr>
+							<td>
+								Korisnicko ime:
+							</td>
+							<td>
+								<input type="text" id="usernameRegister" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Email:
+							</td>
+							<td>
+								<input type="text" id="emailRegister" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Lozinka:
+							</td>
+							<td>
+								<input type="password" id="passwordRegister" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Ponovi lozinku:
+							</td>
+							<td>
+								<input type="password" id="confirmPasswordRegister" />
+							</td>
+						</tr>
+					</table>
+					<p style="text-align: center;">
+						<button type="submit" class="btn btn-sm btn-light col mt-3 btn-outline-dark">Registruj se</button>
+					</p>
+				</form>
+			</div>			
+		</div>
+		<br />-->
+
+		<!--  Forma za registraciju bootstrap style -->
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6 mt-5">
+				<div id="registerFormDiv" style="display:none">
+					<form method="POST" action="/post" id="registerForm" onsubmit="return registerUser()">
+						<h3 style="text-align: center;">Registracija</h3><br>
+
+						<div class="form-group">
+							<label for="usernameRegister">Korisnicko ime: </label><input id="usernameRegister" class="form-control">
+						</div>
+
+						<div class="form-group">
+							<label for="emailRegister">Email: </label><input id="emailRegister" class="form-control">
+						</div>
+
+						<div class="form-group">
+							<label for="passwordRegister">Lozinka: </label><input id="passwordRegister" type="password" class="form-control">
+						</div>
+
+						<div class="form-group">
+							<label for="confirmPasswordRegister">Ponovite lozinku: </label><input id="confirmPasswordRegister" type="password" class="form-control">
+						</div>
+						<p style="text-align: center;"><button type="submit" class="btn btn-sm btn-light col m-2 btn-outline-dark">Registruj se</button><br>
+							<button class="btn btn-sm btn-warning btn-outline-dark col m-2" onclick="setLogRegButtonsPage()" type="reset" style="background-color: yellow !important;">Odustajanje</button>			
+						</p>
+					</form>
+				</div>
+			</div>
+			<div class="col-3"></div>
+		</div>
+		<!-- ovo je forma za registraciju iz primera -->
+		<!-- <div id="registerForm" style="display:none">
+			<h3>Registracija</h3>
+			<form method="post" action="post/" id="regForm" onsubmit="return registerUser()">
+				<p><label>Email: <input type="email" id="emailRegister"></label></p>
+				<p><label>Korisnicko ime: <input type="text" id="usernameRegister"></label></p>
+				<p><label>Lozinka: <input type="password" id="passwordRegister"></label></p>
+				<p><label>Ponovi lozinku: <input type="password" id="confirmPasswordRegister"></label></p>
+				<br />
+				<p><button>Registruj se</button></p>
+			</form>
+			<p>Password value needs to meet following parameters:</p>
+			<ol style="display:inline-block;">
+				<li>
+					at least six characters
+				</li>
+				<li>
+					at least one numeric character
+				</li>
+				<li>
+					at least one non-alphanumeric character
+				</li>
+				<li>
+					at least one small leter
+				</li>
+				<li>
+					at least one capital letter
+				</li>
+			</ol>
+			<link />
+		</div> -->
+
+
+		<div id="search" style="display:none">			
+			<form method="post" action="post/" id="searchForm" onsubmit="return submitSearchForm()">
+				<h3 style="text-align: center;">Pretraga po utakmicama</h3><br>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label for="minCaps">Od: </label><input type="number" id="minCaps" min=0 max=999 class="form-control">
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label for="maxCaps">Do: </label><input type="number" id="maxCaps" min=0 max=999 class="form-control">
+							</div>
+						</div>
+						<div class="col d-flex justify-content-end align-items-end">
+							<div class="form-group">
+								<button class="btn btn-light btn-outline-dark">Pretraga</button>
+							</div>
+						</div>
+					</div>
+			</form>
+		</div>
+		
+
+		<div id="data" style="display:block">
+		</div>
+
+		
+		<div id = "categoryFilter" style="display:none">
+			<form method="post" action="post/" id="CategoryForm" onsubmit="return submitCategoryForm()">
+				<div class="form-group">
+					<label for="categoryFilterDropDown">Kategorija: </label>
+					<select id="categoryFilterDropDown" class="form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+					</select>
+				</div>
+				<button class="btn btn-sm btn-light col m-2 btn-outline-dark">Filtriraj</button>
+				<input type="reset"  class="btn btn-sm btn-dark col m-2" onClick="getDataForTable()" value="Svi proizvodi">
+			</form>
+		</div>
+
+
+
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6 mt-5">
+				<div id="formDiv" style="display:none">
+					<form method="post" action="post/" id="enterObjectForm" onsubmit="return submitObjectForm()">
+						<h3 style="text-align: center;">Dodavanje novog oglasa</h3><br>
+
+						<div class="form-group my-4">
+							<label for="adAgency">Prodavnica </label>
+							<select id="adAgency" class="form-select form-select-sm mb-3 w-50" aria-label=".form-select-lg example" style="float: right;">
+							</select>
+						</div>
+
+						<div class="form-group my-4">
+							<label for="adName">Naslov: </label><input id="adName" class="form-control w-50" style="float: right;">
+						</div>
+						
+						<div class="form-group my-4">
+							<label for="adType">Tip nekretnine: </label><input id="adType" class="form-control w-50" style="float: right;">
+						</div>						
+							<div class="form-group my-4">
+								<label for="adYear">Godina izgradnje: </label><input type="number" min=1910 max=2022 id="adYear" class="form-control w-50" style="float: right;">
+							</div>		
+							<div class="form-group my-4">
+								<label for="adPrice">Cena: </label><input type="number" min=10000 max=300000 id="adPrice" class="form-control w-50" style="float: right;">
+							</div>				
+						<p class="w-100" style="text-align: center;"><button type="submit" class="btn btn-sm btn-light col m-2 btn-outline-dark">Posalji</button>
+							<input type="reset"  class="btn btn-sm btn-warning btn-outline-dark" style="background-color: yellow" onClick="clearForm()" value="Odustajanje"></p>
+					</form>
+				</div>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
+</body>
+</html>
